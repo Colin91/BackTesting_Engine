@@ -1,4 +1,5 @@
 #include "Strats.h"
+<<<<<<< HEAD
 #include <iostream>
 #include <math.h>
 #include <stdio.h>
@@ -7,10 +8,14 @@
 
 using namespace std;
  
+=======
+
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
 Strats::Strats()
 {
     
 }
+<<<<<<< HEAD
 
 Strats::~Strats()
 {
@@ -176,3 +181,5 @@ void Strats::TRINDIC(double ARRAY_In[][5],int Range_In,double* ARRAY_SMA,double*
 
 
 
+=======
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5

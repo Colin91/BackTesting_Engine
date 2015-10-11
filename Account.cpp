@@ -43,13 +43,21 @@ double Account::get_ACC_Margin()
 	return Margin;
 }
 
+<<<<<<< HEAD
 void Account::set_ACC_Profit(double Profit_In)
+=======
+void Account::set_Profit(double Profit_In)
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
 {
 	Balance = Balance + Profit_In;
 	set_ACC_Balance(Balance);
 }
 
+<<<<<<< HEAD
 void Account::set_ACC_Loss(double Loss_In)
+=======
+void Account::set_Loss(double Loss_In)
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
 {
 	Balance = Balance - Loss_In;
 	set_ACC_Balance(Balance);

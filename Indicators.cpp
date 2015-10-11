@@ -5,7 +5,10 @@
 #include <stdlib.h>
 #include <cmath>
 #include <iomanip>
+<<<<<<< HEAD
 #include <vector>
+=======
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
 using namespace std;
 
 Indicators::Indicators()
@@ -13,6 +16,7 @@ Indicators::Indicators()
 
 }
 
+<<<<<<< HEAD
 Indicators::~Indicators()
 {
 
@@ -65,11 +69,46 @@ void Indicators::IND_EMA(double ARRAY_In[][5],fstream* FP_In,double* ARRAY_EMA_I
 	Mult = 2.0/(PERIOD_In+1);
 	
     for(int a=0;a<=RANGE_In-PERIOD_In+1;a++)
+=======
+
+void Indicators::IND_SMA(double ARRAY_In[][4],double* ARRAY_SMA_In,int PERIOD_In,int RANGE_In)
+{
+    double Price;
+    double Price_Cumulative;
+    double ARRAY_SMA[RANGE_In];
+    for(int a=0;a<RANGE_In;a++)
     {
         for(int i=a;i<a+PERIOD_In;i++)
         {
             Price_Cumulative=Price_Cumulative+ARRAY_In[i][3];
         }
+        Price = (Price_Cumulative/PERIOD_In);
+        ARRAY_SMA[a]=Price;
+        Price_Cumulative=0;
+    }
+    for(int i=0;i<RANGE_In;i++)
+    {
+        ARRAY_SMA_In[i] = ARRAY_SMA[i];
+    }
+    //cout<<ARRAY_SMA_In[0]<<endl;
+}
+
+
+//EMAtoday = α⋅xtoday + (1-α)EMAyesterday
+void Indicators::IND_EMA(double ARRAY_In[][4],double* ARRAY_EMA_In,int PERIOD_In,int RANGE_In)
+{
+	double Mult;
+	double SMA_Price;
+    double Price_Cumulative;
+    double ARRAY_SMA[RANGE_In];
+    for(int a=0;a<PERIOD_In;a++)
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
+    {
+        for(int i=a;i<a+PERIOD_In;i++)
+        {
+            Price_Cumulative=Price_Cumulative+ARRAY_In[i][3];
+        }
+<<<<<<< HEAD
         Price = (Price_Cumulative/PERIOD_In);
         ARRAY_EMA_In[a] = Price; 
         Price_Cumulative=0;     
@@ -90,6 +129,19 @@ void Indicators::IND_EMA(double ARRAY_In[][5],fstream* FP_In,double* ARRAY_EMA_I
     //cout<<*last<<endl;
     cout<<"---"<<endl;
      
+=======
+        SMA_Price = (Price_Cumulative/PERIOD_In);
+        ARRAY_SMA[a]=SMA_Price;
+        Price_Cumulative=0;
+    }
+    Mult = 2.0/(PERIOD_In+1);   
+    ARRAY_EMA_In[0] = 0.0;
+    ARRAY_EMA_In[1] = SMA_Price;
+    for(int i=2;i<RANGE_In;i++)
+    {
+    	ARRAY_EMA_In[i] = (ARRAY_In[i][3] - ARRAY_EMA_In[i-1])*Mult + ARRAY_EMA_In[i-1];
+    }
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
 }
 
 /*
@@ -97,8 +149,12 @@ void Indicators::IND_EMA(double ARRAY_In[][5],fstream* FP_In,double* ARRAY_EMA_I
 	Smooth it: TR14 – (TR14/14) + Current TR
 	For following calculations: Prior TR14 – (Prior TR14/14) + Current TR14
 */
+<<<<<<< HEAD
 /*
 void Indicators::IND_ADX(double ARRAY_In[][5],double* ARRAY_ADX_In,int RANGE_In,int PERIOD_In)
+=======
+void Indicators::IND_ADX(double ARRAY_In[][4],double* ARRAY_ADX_In,int PERIOD_In,int RANGE_In)
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
 {
 	double* TRUE_RANGE = new double[RANGE_In];
 	double* DireM_One_Pos = new double[RANGE_In];
@@ -154,7 +210,11 @@ void Indicators::IND_ADX(double ARRAY_In[][5],double* ARRAY_ADX_In,int RANGE_In,
 		DX[i] = DireI_PERIOD_SUM[i]/DireI_PERIOD_DIFF[i];
 		
 		ARRAY_ADX_In[i] = DX[i]/PERIOD_In;
+<<<<<<< HEAD
 		//cout<<ARRAY_ADX_In[i]<<endl;
+=======
+		cout<<ARRAY_ADX_In[i]<<endl;
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
 			
 		TRUE_RANGEs=0;
 		DM_PERIOD_POS=0;
@@ -163,7 +223,11 @@ void Indicators::IND_ADX(double ARRAY_In[][5],double* ARRAY_ADX_In,int RANGE_In,
 	
 }
 
+<<<<<<< HEAD
 void Indicators::IND_RSI(double ARRAY_In[][5],double* ARRAY_RSI_In,int RANGE_In,int PERIOD_In)
+=======
+void Indicators::IND_RSI(double ARRAY_In[][4],double* ARRAY_RSI_In,int PERIOD_In,int RANGE_In)
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
 {
 	double ABS_CHANGE=0;
 	double PREV_ABS_CHANGE=0; //ABS_CHANGE of the value to be popped.  for 3 period ->   yy [xx xx xx] , yy = PREV_ABS_CHANGE
@@ -214,9 +278,14 @@ void Indicators::IND_RSI(double ARRAY_In[][5],double* ARRAY_RSI_In,int RANGE_In,
 	}	
 }
 
+<<<<<<< HEAD
 void Indicators::IND_DC(double ARRAY_In[][5],fstream* FP_In,int RANGE_In,int Mode_In,int LookBackLambda_In,double DC_Change) 
 {
 
+=======
+void Indicators::IND_DC(double ARRAY_In[][4],double* ARRAY_DC_In,int PERIOD_In, int RANGE_In,int Mode_In,int LookBackLambda_In) 
+{
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
 	if(LookBackLambda_In==0)
 	{
 		LookBackLambda_In=1;
@@ -225,21 +294,35 @@ void Indicators::IND_DC(double ARRAY_In[][5],fstream* FP_In,int RANGE_In,int Mod
 	{
 		if(Mode_In==0) //HIGH[i] - LOW[i-1]
 		{
+<<<<<<< HEAD
 			*FP_In<<((ARRAY_In[i][1] - ARRAY_In[i-LookBackLambda_In][2])/ARRAY_In[i-LookBackLambda_In][2])*100;			
+=======
+			ARRAY_DC_In[i] = ((ARRAY_In[i][1] - ARRAY_In[i-LookBackLambda_In][2])/ARRAY_In[i-LookBackLambda_In][2])*100;
+			
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
 		}
 		
 		if(Mode_In==1) //CLOSE[i]-CLOSE[i-1]
 		{
+<<<<<<< HEAD
 			*FP_In<<((ARRAY_In[i][3] - ARRAY_In[i-LookBackLambda_In][3])/ARRAY_In[i-LookBackLambda_In][3])*100;
+=======
+			ARRAY_DC_In[i] = ((ARRAY_In[i][3] - ARRAY_In[i-LookBackLambda_In][3])/ARRAY_In[i-LookBackLambda_In][3])*100;
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
 		}
 		
 		if(Mode_In==2) //HIGH[i] - HIGH[i-1]
 		{
+<<<<<<< HEAD
 			*FP_In<<((ARRAY_In[i][1] - ARRAY_In[i-LookBackLambda_In][1])/ARRAY_In[i-LookBackLambda_In][1])*100;
+=======
+			ARRAY_DC_In[i] = ((ARRAY_In[i][1] - ARRAY_In[i-LookBackLambda_In][1])/ARRAY_In[i-LookBackLambda_In][1])*100;
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
 		}
 		
 		if(Mode_In==3) //LOW[i] - LOW[i-1]
 		{
+<<<<<<< HEAD
 			*FP_In<<((ARRAY_In[i][2] - ARRAY_In[i-LookBackLambda_In][2])/ARRAY_In[i-LookBackLambda_In][2])*100;
 		}
 			
@@ -249,6 +332,16 @@ void Indicators::IND_DC(double ARRAY_In[][5],fstream* FP_In,int RANGE_In,int Mod
 }
 
 */
+=======
+			ARRAY_DC_In[i] = ((ARRAY_In[i][2] - ARRAY_In[i-LookBackLambda_In][2])/ARRAY_In[i-LookBackLambda_In][2])*100;
+		}
+			
+	}
+	
+}
+
+
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
 double Indicators::Absolute(double Input)
 {
 	if(Input<0.0)
@@ -264,6 +357,7 @@ double Indicators::Absolute(double Input)
 
 
 
+<<<<<<< HEAD
 /*
     
     //////////////////////BUFFER//////////////////////////////////
@@ -324,6 +418,9 @@ double Indicators::Absolute(double Input)
 		
 	}while(Counter!=PERIOD_In-1);
 	*/
+=======
+
+>>>>>>> 212ac0121b43f3ae3a6ffe37a2cc08f8d9132fe5
 
 
 
